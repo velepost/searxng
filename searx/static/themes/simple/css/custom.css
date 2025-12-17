@@ -1,0 +1,38 @@
+ .res_post {
+        position: relative; /* Add relative positioning to the parent div */
+        border: 1px solid #666;
+        padding: 10px;
+        margin: 10px;
+ 		margin-bottom: 20px;
+    }
+
+    /* Style the strong (key) elements */
+    .res_post strong {
+        color: #999;
+    	font-weight: normal;
+    }
+
+    /* Style the value elements */
+    .res_post span {
+        color: #ddd;
+    }
+    .res_post p {
+       padding: 2px;
+       margin:0;
+    }
+.enginioes {
+        position: absolute; /* Position the engines div absolutely */
+        bottom: -10px; /* Adjust this value to control the vertical positioning */
+        right: 10px; /* Right margin of 10px */
+        background-color: #333; /* Dark grey background */
+        color: #f9f9f9; /* Light grey text */
+        padding: 5px 10px; /* Padding for the engines div */
+        border: 1px solid #666;
+        border-radius: 5px; /* Rounded corners */
+    }
+
+.highlight {
+  color: limegreen; /* Change this to your desired text color within the highlight */
+}
+
+.audio-control-psql audio{width:100%;padding:10px 0 0 0}

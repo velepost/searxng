@@ -85,6 +85,7 @@ def response(resp):
                 'publishedDate': publishedDate,
                 'iframe_src': "https://www.youtube-nocookie.com/embed/" + videoid,
                 'thumbnail': thumbnail,
+                'iframe_attr': ' referrerpolicy="strict-origin-when-cross-origin" '
             }
         )
 

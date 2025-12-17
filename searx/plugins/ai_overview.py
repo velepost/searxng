@@ -12,15 +12,16 @@ import markdown2
 
 from flask_babel import gettext
 from urllib.parse import quote
-from searx.plugins import Plugin, PluginInfo
 from searx.result_types import EngineResults
 from searx import settings
 from babel import Locale
+from searx.plugins import Plugin, PluginInfo
 
 
 if typing.TYPE_CHECKING:
     from searx.search import SearchWithPlugins
     from searx.extended_types import SXNG_Request
+    from searx.plugins import PluginCfg
 
 logger = logging.getLogger(__name__)
 
@@ -66,11 +67,16 @@ If you cannot detect the language, here is the language from user settings: {lan
 
 
 class SXNGPlugin(Plugin):
+    """Simple plugin that displays information from openwebui AI intent based agent.
+    The information is displayed in area for the
+    "answers".
+    """
     id = "ai_overview"
     default_on = False
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, plg_cfg: "PluginCfg"):
+        super().__init__(plg_cfg)
+        
 
         self.info = PluginInfo(
             id=self.id,
@@ -185,10 +191,13 @@ class SXNGPlugin(Plugin):
             ai_answer_a = f"Set in general preferences engine tokens"
             results.add(results.types.Answer(answer=ai_answer_a.strip()))
             return results
+            
 
         query = search.search_query.query.strip()
         
         if not query:
+            ai_answer_a = "Please enter a query and remember to include 'ai' at the end for AI assistance."
+            results.add(results.types.Answer(answer=ai_answer_a.strip()))
             return results
         if query.casefold().endswith(" ai"):
             query = query[:-3].rstrip()

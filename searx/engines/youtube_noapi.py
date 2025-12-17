@@ -86,6 +86,7 @@ def parse_next_page_response(response_text):
                 'template': 'videos.html',
                 'iframe_src': 'https://www.youtube-nocookie.com/embed/' + section['videoId'],
                 'thumbnail': section['thumbnail']['thumbnails'][-1]['url'],
+                'iframe_attr': ' referrerpolicy="strict-origin-when-cross-origin" '
             }
         )
     try:
@@ -157,6 +158,7 @@ def parse_first_page_response(response_text):
                         'template': 'videos.html',
                         'iframe_src': 'https://www.youtube-nocookie.com/embed/' + videoid,
                         'thumbnail': thumbnail,
+                        'iframe_attr': ' referrerpolicy="strict-origin-when-cross-origin" '
                     }
                 )
 
