@@ -1,0 +1,19 @@
+<div class="res_post">
+    {% for key, value in result.items() %}
+    {% if key in ['engine', 'engines', 'template', 'score', 'category', 'positions', 'pretty_url', 'parsed_url'] %}
+        {% continue %}
+    {% endif %}
+
+    	{% if key|lower == 'link' %}
+            {% set value = value|replace('/media/SSH_cloud/Shared Music/', 'mp3files/') %}
+            <p><strong>{{ 'link'|replace('_', ' ')|title }}:</strong> <a href="/player?komad={{ value }}" target="_blank">{{ key }}</a></p>
+<div id="result-media-{{ index }}" class="audio-control-psql">
+  <audio controls><source src="/{{ value }}"></audio>
+</div>
+        {% else %}
+            <p><strong>{{ key|replace('_', ' ')|title }}:</strong> <span>{{ value|safe }}</span></p>
+        {% endif %}
+
+    {% endfor %}
+<div class="enginioes">{% for engine in result.engines %}<span>{{ engine }}</span>{% endfor %}</div>
+</div>

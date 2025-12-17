@@ -1,0 +1,33 @@
+{% from 'simple/macros.html' import result_header, result_sub_header, result_sub_footer, result_link, result_footer with context %}
+
+{{ result_header(result, favicons, image_proxify) -}}
+{{- result_sub_header(result) -}}
+
+{% if result.sflink %}<p class="altlink"> &bull; {{ result_link(result.sflink, icon_big('download-alt') + _('salesforce link'), "salesforce") }}</p>{% endif %}
+{% if result.url %}<p class="altlink"> &bull; {{ result_link(result.url, icon_big('download-alt') + _('website link'), "website") }}</p>{% endif %}
+
+
+{%- if result.content %}
+  <p class="content">
+    {{ result.content|safe }}
+  </p>
+{%- else %}
+  <p class="content empty_element">
+    {{ _('This record did not provide any description.')|safe }}
+  </p>
+{% endif -%}
+
+{%- if result.webscrape %}
+  <p class="content">
+    Website content: {{ result.webscrape|safe }}
+  </p>
+{%- else %}
+  <p class="content empty_element">
+    {{ _('The website has not been scraped yet')|safe }}
+  </p>
+{% endif -%}
+
+{% if result.country %}<p class="content">Country: <strong>{{ result.country|safe }}</strong></p>{% endif %}
+
+{{- result_sub_footer(result, proxify) -}}
+{{- result_footer(result) }}

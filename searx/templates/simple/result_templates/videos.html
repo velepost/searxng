@@ -14,11 +14,26 @@
     {{ _('This site did not provide any description.')|safe }}
   </p>
 {% endif -%}
+
+{%- if result.ytchannel %}
+ <p class="content">
+    {{ _('Channel: ')|safe }}
+    <a href="https://www.youtube.com/channel/{{ result.ytchannelId }}" target="_blank">{{ result.ytchannel }}</a>
+  </p>
+{% endif -%}
 </p>
-{{- result_sub_footer(result) -}}
+{{- result_sub_footer(result, proxify) -}}
 {% if result.iframe_src -%}
+{% set updated_iframe_src = result.iframe_src %}
+ {% if result.origin -%}
+    {% if '?' in updated_iframe_src %}
+        {% set updated_iframe_src = updated_iframe_src + "&enablejsapi=1&origin=" + result.origin %}
+    {% else %}
+        {% set updated_iframe_src = updated_iframe_src + "?enablejsapi=1&origin=" + result.origin %}
+    {% endif %}
+ {% endif %}
 <div id="result-video-{{ index }}" class="embedded-video invisible">
-  <iframe data-src="{{result.iframe_src}}" frameborder="0" allowfullscreen></iframe>
+  <iframe data-src="{{result.iframe_src}}" frameborder="0" allowfullscreen title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
 </div>
 {%- endif %}
 {{ result_footer(result) }}
